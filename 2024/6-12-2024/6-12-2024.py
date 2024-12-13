@@ -71,8 +71,8 @@ def count_character_in_file(file_path, character):
 # Bestand inlezen
 file_path = './2024/6-12-2024/6-12-2024.txt'
 data = count_rows_and_columns(file_path)
-# if data:
-#     loop_through(data, ["^", ">", "v", "<"], file_path)
+if data:
+    loop_through(data, ["^", ">", "v", "<"], file_path)
 
 x_count = count_character_in_file(file_path, 'x')
 
