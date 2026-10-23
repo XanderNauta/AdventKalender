@@ -4,7 +4,7 @@ script_dir = Path(__file__).parent
 bestand_pad = script_dir / "1-12-2025.txt"
 
 lijst = []
-current_nummber = 50
+absolute_position = 50
 code = 0
 
 def get_list():
@@ -17,28 +17,31 @@ def get_list():
     print("list loaded:", len(lijst), "items")
 
 def process_first_item():
-    global current_nummber, code
+    global absolute_position, code
     if not lijst:
         return
     
     item = lijst.pop(0)
     
-    direction = item[0]
+    direction = item[0] 
     try:
         rotation = int(item[1:])
     except ValueError:
         rotation = 0
 
+    old_position = absolute_position
+
     if direction == "R":
-        current_nummber = (current_nummber + rotation) % 100
+        absolute_position += rotation
+        crossings = absolute_position // 100 - old_position // 100
     elif direction == "L":
-        current_nummber = (current_nummber - rotation) % 100
+        absolute_position -= rotation
+        crossings = (old_position - 1) // 100 - (absolute_position - 1) // 100
         
-    if current_nummber == 0:
-        code += 1
+    code += crossings
 
 if __name__ == "__main__":
     get_list()
     while lijst:
         process_first_item()
-    print("Final code value:", code)
+    print("Final password", code)
